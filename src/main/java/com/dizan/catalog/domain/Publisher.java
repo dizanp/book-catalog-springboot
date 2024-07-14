@@ -45,5 +45,5 @@ public class Publisher implements Serializable{
 	private List<Book> books; 
 	
 	@Column(name="deleted", columnDefinition = "boolean default false")
-	private Boolean deleted;
+	private Boolean deleted = false;
 }

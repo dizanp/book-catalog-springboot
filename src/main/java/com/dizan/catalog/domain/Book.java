@@ -63,5 +63,5 @@ public class Book implements Serializable {
 	private List<Category> categories;
 	
 	@Column(name="deleted", columnDefinition = "boolean default false")
-	private Boolean deleted;
+	private Boolean deleted = false;
 }

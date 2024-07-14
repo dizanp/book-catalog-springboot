@@ -52,5 +52,5 @@ public class Author implements Serializable{
 	private LocalDate birthDate;	
 	
 	@Column(name="deleted", columnDefinition = "boolean default false")
-	private Boolean deleted;
+	private Boolean deleted = false;
 }

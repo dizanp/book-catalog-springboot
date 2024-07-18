@@ -38,7 +38,7 @@ public class Book implements Serializable {
 	@Column(name = "title", nullable = false)
 	private String title;
 	
-	@Column(name = "description", nullable = true)
+	@Column(name = "description", nullable = true, columnDefinition = "TEXT")
 	private String description;
 	
 	@ManyToOne

@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import com.dizan.catalog.dto.BookCreateDTO;
+import com.dizan.catalog.dto.BookCreateRequestDTO;
 import com.dizan.catalog.dto.BookDetailDTO;
 import com.dizan.catalog.service.BookService;
 
@@ -34,13 +34,13 @@ public class BookController {
 
 	@GetMapping("/new")
 	public String loadBookForm(Model model) {
-		BookCreateDTO dto = new BookCreateDTO();
+		BookCreateRequestDTO dto = new BookCreateRequestDTO();
 		model.addAttribute("bookCreateDTO",dto);
 		return "book/book-new";
 	}
 
 	@PostMapping("/new")
-	public String addNewBook(@ModelAttribute("bookCreateDTO") @Valid BookCreateDTO dto,
+	public String addNewBook(@ModelAttribute("bookCreateDTO") @Valid BookCreateRequestDTO dto,
 			BindingResult bindingResult,
 			Errors errors,
 			Model model) {

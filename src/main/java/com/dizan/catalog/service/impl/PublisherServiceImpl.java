@@ -57,7 +57,7 @@ public class PublisherServiceImpl implements PublisherService {
 	@Override
 	public ResultPageResponseDTO<PublisherListResponseDTO> findPublisherList(Integer pages, Integer limit,
 			String sortBy, String direction, String publisherName) {
-		publisherName = StringUtils.isBlank(publisherName)?"%":publisherName+"%";
+		publisherName = StringUtils.isBlank(publisherName) ? "%" : publisherName + "%";
 		Sort sort = Sort.by(new Sort.Order(PaginationUtil.getSortBy(direction), sortBy));
 		Pageable pageable = PageRequest.of(pages, limit, sort);
 		Page<Publisher> pageResult = publisherRepository.findByNameLikeIgnoreCase(publisherName, pageable);
@@ -69,6 +69,12 @@ public class PublisherServiceImpl implements PublisherService {
 			return dto;
 		}).collect(Collectors.toList());
 		return PaginationUtil.createResultPageDTO(dtos, pageResult.getTotalElements(), pageResult.getTotalPages());
+	}
+
+	@Override
+	public Publisher findPublisher(String publisherId) {
+		return publisherRepository.findBySecureId(publisherId)
+				.orElseThrow(() -> new BadRequestException("invalid.publisher_id"));
 	}
 
 }

@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.dizan.catalog.dto.BookCreateDTO;
+import com.dizan.catalog.dto.BookCreateRequestDTO;
 import com.dizan.catalog.dto.BookDetailDTO;
 import com.dizan.catalog.dto.BookUpdateRequestDTO;
 import com.dizan.catalog.service.BookService;
@@ -39,7 +39,7 @@ public class BookResource {
 	}
 	
 	@PostMapping("/book")
-	public ResponseEntity<Void> createANewBook(@RequestBody BookCreateDTO dto){
+	public ResponseEntity<Void> createANewBook(@RequestBody BookCreateRequestDTO dto){
 		bookService.createNewBook(dto);
 		return ResponseEntity.created(URI.create("/book")).build();
 	}

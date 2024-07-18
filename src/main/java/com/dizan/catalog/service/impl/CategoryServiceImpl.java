@@ -13,6 +13,7 @@ import com.dizan.catalog.domain.Category;
 import com.dizan.catalog.dto.CategoryCreateUpdateRequestDTO;
 import com.dizan.catalog.dto.CategoryListResponseDTO;
 import com.dizan.catalog.dto.ResultPageResponseDTO;
+import com.dizan.catalog.exception.BadRequestException;
 import com.dizan.catalog.repository.CategoryRepository;
 import com.dizan.catalog.service.CategoryService;
 import com.dizan.catalog.util.PaginationUtil;
@@ -54,6 +55,13 @@ public class CategoryServiceImpl implements CategoryService{
 			return dto;
 		}).collect(Collectors.toList());
 		return PaginationUtil.createResultPageDTO(dtos, pageResult.getTotalElements(), pageResult.getTotalPages());
+	}
+
+	@Override
+	public List<Category> findCategories(List<String> categoryCodeList) {
+		List<Category> categories = categoryRepository.findByCodeIn(categoryCodeList);
+		if(categories.isEmpty()) throw new BadRequestException("category cant empty");
+		return categories;
 	}
 
 }

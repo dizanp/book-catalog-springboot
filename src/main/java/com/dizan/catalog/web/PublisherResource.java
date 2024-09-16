@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.dizan.catalog.annotation.LogThisMethod;
 import com.dizan.catalog.dto.PublisherCreateRequestDTO;
 import com.dizan.catalog.dto.PublisherListResponseDTO;
 import com.dizan.catalog.dto.PublisherUpdateRequestDTO;
@@ -39,6 +40,7 @@ public class PublisherResource {
 		return ResponseEntity.ok().build();
 	}
 	
+	@LogThisMethod
 	@GetMapping("/v1/publisher")
 	public ResponseEntity<ResultPageResponseDTO<PublisherListResponseDTO>> findPublisherList(
 			@RequestParam(name = "pages", required = true, defaultValue = "0") Integer pages,

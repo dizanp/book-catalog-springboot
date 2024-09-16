@@ -11,6 +11,7 @@ import com.dizan.catalog.dto.AuthorCreateRequestDTO;
 import com.dizan.catalog.dto.AuthorResponseDTO;
 import com.dizan.catalog.dto.AuthorUpdateRequestDTO;
 import com.dizan.catalog.exception.BadRequestException;
+import com.dizan.catalog.exception.ResourceNotFoundExeception;
 import com.dizan.catalog.repository.AuthorRepository;
 import com.dizan.catalog.service.AuthorService;
 
@@ -27,7 +28,7 @@ public class AuthorServiceImpl implements AuthorService {
 		// TODO Auto-generated method stub
 		// 1. fetch data from databse
 		Author author = authorRepository.findBySecureId(id)
-				.orElseThrow(() -> new BadRequestException("invalid.authorId"));
+				.orElseThrow(() -> new ResourceNotFoundExeception("invalid.authorId"));
 		// 2. author -> authorResponseDTO
 		AuthorResponseDTO dto = new AuthorResponseDTO();
 		dto.setAuthorName(author.getName());
@@ -85,6 +86,16 @@ public class AuthorServiceImpl implements AuthorService {
 		if (authors.isEmpty())
 			throw new BadRequestException("author cant empty");
 		return authors;
+	}
+
+	@Override
+	public List<AuthorResponseDTO> constructDTO(List<Author> authors) {
+		return authors.stream().map((a) -> {
+			AuthorResponseDTO dto = new AuthorResponseDTO();
+			dto.setAuthorName(a.getName());
+			dto.setBirthDate(a.getBirthDate().toEpochDay());
+			return dto;
+		}).collect(Collectors.toList());
 	}
 
 }

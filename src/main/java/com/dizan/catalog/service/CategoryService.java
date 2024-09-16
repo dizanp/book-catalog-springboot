@@ -15,4 +15,6 @@ public interface CategoryService {
 			Integer limit, String sortBy, String direction, String categoryName);
 	
 	public List<Category> findCategories(List<String> categoryCodeList);
+	
+	public List<CategoryListResponseDTO> constructDTO(List<Category> categories);
 }
